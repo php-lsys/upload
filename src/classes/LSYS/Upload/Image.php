@@ -15,13 +15,13 @@ class Image extends Upload{
 	 */
 	public function check(){
 		if(!parent::check())return false;
-		$this->check_image();
+		$this->checkImage();
 		return count($this->_error)==0;
 	}
 	/**
 	 * @return  boolean
 	 */
-	public function check_image()
+	public function checkImage()
 	{
 		$file=$this->_file;
 		if (!isset($file['tmp_name']))return false;

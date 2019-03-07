@@ -36,7 +36,7 @@ class Upload {
 	/**
 	 * get upload file ext
 	 */
-	public function get_ext(){
+	public function getExt(){
 		return '.'.pathinfo($this->_file['name'], PATHINFO_EXTENSION);
 	}
 	/**
@@ -53,7 +53,7 @@ class Upload {
 		if ($filename === NULL)
 		{
 			if ($filename==null){
-				$ext=$this->get_ext();
+				$ext=$this->getExt();
 			}else{
 			    $ext=".".pathinfo($filename, PATHINFO_EXTENSION);
 			}
@@ -68,7 +68,7 @@ class Upload {
 		}
 		else $directory = $this->_config->get("dir",self::$default_directory);
 		
-		$this->_make_dir($directory);
+		$this->_makeDir($directory);
 		if (!is_writable(realpath($directory))){
 			throw new Exception(__('Directory :dir must be writable',array("dir"=>$directory)));
 		}
@@ -95,7 +95,7 @@ class Upload {
 	 * @param string $path
 	 * @throws Exception
 	 */
-	protected function _make_dir($dir){
+	protected function _makeDir($dir){
 		$is_linux=false;
 		$dir=str_replace(array('\\','//'),'/',$dir);
 		if(substr($dir, 0,1)=='/')$is_linux=true;
@@ -131,9 +131,9 @@ class Upload {
 	 */
 	public function check(){
 		if(!$this->valid())return false;
-		$this->check_size();
-		$this->check_empty();
-		$this->check_type();
+		$this->checkSize();
+		$this->checkEmpty();
+		$this->checkType();
 		return count($this->_error)==0;
 	}
 	/**
@@ -169,7 +169,7 @@ class Upload {
 	 * check upload file is empty
 	 * @return boolean
 	 */
-	public function check_empty()
+	public function checkEmpty()
 	{
 		$file=$this->_file;
 		$status= (isset($file['error'])
@@ -185,7 +185,7 @@ class Upload {
 	 * check upload file type
 	 * @return boolean
 	 */
-	public function check_type()
+	public function checkType()
 	{
 		$file=$this->_file;
 		if (!isset($file['name']))return false;
@@ -201,7 +201,7 @@ class Upload {
 	 * check upload file size
 	 * @return boolean
 	 */
-	public function check_size()
+	public function checkSize()
 	{
 		if (!isset($this->_file['error'])||!isset($this->_file['size']))return false;
 		switch ($this->_file['error']) {

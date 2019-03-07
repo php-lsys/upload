@@ -19,7 +19,7 @@ $file=$_FILES['file'];
 $config= new File("upload.dome_image");
 $upload = new Image($file,$config);
 
-$filename=$upload->save("ddd".$upload->get_ext());
+$filename=$upload->save("ddd".$upload->getExt());
 if ($filename===false){
 	print_r($upload->errors());
 }else{
