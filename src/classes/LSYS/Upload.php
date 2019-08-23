@@ -70,7 +70,7 @@ class Upload {
 		
 		$this->_makeDir($directory);
 		if (!is_writable(realpath($directory))){
-			throw new Exception(__('Directory :dir must be writable',array("dir"=>$directory)));
+			throw new Exception(__('Directory :dir must be writable',array(":dir"=>$directory)));
 		}
 		// Make the filename into a complete path
 		$_filename = realpath($directory).DIRECTORY_SEPARATOR.$filename;
@@ -87,7 +87,7 @@ class Upload {
 	protected function _save($filename){
 		//move file
 		if (!@move_uploaded_file($this->_file['tmp_name'], $filename)){
-			throw new Exception(__('move :tmp_file to :file fail',array("file"=>$filename,'tmp_file'=>$this->_file['tmp_name'])));
+			throw new Exception(__('move :tmp_file to :file fail',array(":file"=>$filename,':tmp_file'=>$this->_file['tmp_name'])));
 		}
 	}
 	/**
@@ -119,8 +119,8 @@ class Upload {
 				if (strpos($vv,$t_dir)===0)continue 2;
 			}
 			if(is_dir($t_dir))continue;
-			if (!is_writable($t_dir))throw new Exception(__("can't write directory :dir",array("dir"=>$t_dir)));
-			if(!@mkdir($t_dir,0777)) throw new Exception(__("can't create directory :dir",array("dir"=>$t_dir)));
+			if (!is_writable($t_dir))throw new Exception(__("can't write directory :dir",array(":dir"=>$t_dir)));
+			if(!@mkdir($t_dir,0777)) throw new Exception(__("can't create directory :dir",array(":dir"=>$t_dir)));
 			@chmod($t_dir, 0777);
 		}
 		return true;
@@ -195,7 +195,7 @@ class Upload {
 		if (count($exts)==0)return  true;
 		$ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 		if(in_array($ext, $exts))return true;
-		$this->_error[]=__("upload file ext allowed is :exts",array("exts"=>implode(",",$exts)));
+		$this->_error[]=__("upload file ext allowed is :exts",array(":exts"=>implode(",",$exts)));
 	}
 	/**
 	 * check upload file size
@@ -208,7 +208,7 @@ class Upload {
 			case UPLOAD_ERR_INI_SIZE:
 				$upload_max=ini_get("upload_max_filesize");
 				$error=__("The uploaded file exceeds the upload_max_filesize[:size] directive in php.ini",
-					array("size"=>$upload_max)
+					array(":size"=>$upload_max)
 				);
 				break;
 			case UPLOAD_ERR_FORM_SIZE:
@@ -243,7 +243,7 @@ class Upload {
 		$size=$config->get("size",ini_get("upload_max_filesize"));
 		if (empty($size))return true;
 		if($this->_file['size'] > self::_bytes($size)){
-			$error=__("upload file limit size :size",array("size"=>$size));
+			$error=__("upload file limit size :size",array(":size"=>$size));
 		}
 		if (isset($error)){
 			$this->_error[]=$error;

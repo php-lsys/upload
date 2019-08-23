@@ -31,7 +31,7 @@ class Image extends Upload{
 		}
 		catch (\ErrorException $e)
 		{
-			$this->_error[]=__("parse image fail: :msg",array("msg"=>$e->getMessage()));
+			$this->_error[]=__("parse image fail: :msg",array(":msg"=>$e->getMessage()));
 			return false;
 		}
 		$config=$this->_config;
@@ -41,28 +41,28 @@ class Image extends Upload{
 		$max_w=isset($width['max'])?$width['max']:0;
 		if ($max_w&&$w>$max_w){
 			$this->_error[]=__("file width max limit is :max,you are :ymax",
-				array("max"=>$max_w,"ymax"=>$w)
+				array(":max"=>$max_w,":ymax"=>$w)
 			);
 			return false;
 		}
 		$max_h=isset($height['max'])?$height['max']:0;
 		if ($max_h&&$h>$max_h){
 			$this->_error[]=__("file height max limit is :max,you are :ymax",
-				array("max"=>$max_h,"ymax"=>$h)
+				array(":max"=>$max_h,":ymax"=>$h)
 			);
 			return false;
 		}
 		$min_w=isset($width['min'])?$width['min']:0;
 		if ($min_w&&$w<$min_w){
 			$this->_error[]=__("file width min limit is :min,you are :ymin",
-				array("min"=>$min_w,"ymin"=>$w)
+				array(":min"=>$min_w,":ymin"=>$w)
 			);
 			return false;
 		}
 		$min_h=isset($height['min'])?$height['min']:0;
 		if ($min_h&&$h<$min_h){
 			$this->_error[]=__("file height min limit is :max,you are :ymax",
-				array("min"=>$min_h,"ymin"=>$h)
+				array(":min"=>$min_h,":ymin"=>$h)
 			);
 			return false;
 		}
