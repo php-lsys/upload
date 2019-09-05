@@ -2,7 +2,6 @@
 	"name" : "lsys/upload",
 	"type" : "library",
 	"license": "Apache-2.0",
-
 	"description" : "lsys module upload",
 	"autoload" : {
 		"psr-4" : {
