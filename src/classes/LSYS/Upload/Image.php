@@ -13,7 +13,7 @@ class Image extends Upload{
 	 * {@inheritDoc}
 	 * @see \LSYS\Upload::check()
 	 */
-	public function check(){
+	public function check():bool{
 		if(!parent::check())return false;
 		$this->checkImage();
 		return count($this->_error)==0;
@@ -21,7 +21,7 @@ class Image extends Upload{
 	/**
 	 * @return  boolean
 	 */
-	public function checkImage()
+	public function checkImage():bool
 	{
 		$file=$this->_file;
 		if (!isset($file['tmp_name']))return false;

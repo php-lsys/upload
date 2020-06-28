@@ -36,7 +36,7 @@ class Upload {
 	/**
 	 * get upload file ext
 	 */
-	public function getExt(){
+	public function getExt():string{
 		return '.'.pathinfo($this->_file['name'], PATHINFO_EXTENSION);
 	}
 	/**
@@ -46,7 +46,7 @@ class Upload {
 	 * @throws Exception
 	 * @return boolean|string
 	 */
-	public function save(&$filename = NULL,$chmod = 0644)
+	public function save(?string &$filename = NULL,$chmod = 0644)
 	{
 		if (!$this->check())return false;
 		$file=$this->_file;
@@ -95,12 +95,12 @@ class Upload {
 	 * @param string $path
 	 * @throws Exception
 	 */
-	protected function _makeDir($dir){
+	protected function _makeDir(string $dir):bool{
 		$is_linux=false;
 		$dir=str_replace(array('\\','//'),'/',$dir);
 		if(substr($dir, 0,1)=='/')$is_linux=true;
 		$dir=explode("/",$dir);
-		if(empty($dir)) return ;
+		if(empty($dir)) return false;
 		$t_dir='';
 		$one=true;
 		$sdir=ini_get("open_basedir");
@@ -129,7 +129,7 @@ class Upload {
 	 * check upload file
 	 * @throws Exception
 	 */
-	public function check(){
+	public function check():bool{
 		if(!$this->valid())return false;
 		$this->checkSize();
 		$this->checkEmpty();
@@ -169,7 +169,7 @@ class Upload {
 	 * check upload file is empty
 	 * @return boolean
 	 */
-	public function checkEmpty()
+	public function checkEmpty():bool
 	{
 		$file=$this->_file;
 		$status= (isset($file['error'])
@@ -185,7 +185,7 @@ class Upload {
 	 * check upload file type
 	 * @return boolean
 	 */
-	public function checkType()
+	public function checkType():bool
 	{
 		$file=$this->_file;
 		if (!isset($file['name']))return false;
@@ -196,12 +196,13 @@ class Upload {
 		$ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 		if(in_array($ext, $exts))return true;
 		$this->_error[]=__("upload file ext allowed is :exts",array(":exts"=>implode(",",$exts)));
+		return false;
 	}
 	/**
 	 * check upload file size
 	 * @return boolean
 	 */
-	public function checkSize()
+	public function checkSize():bool
 	{
 		if (!isset($this->_file['error'])||!isset($this->_file['size']))return false;
 		switch ($this->_file['error']) {
