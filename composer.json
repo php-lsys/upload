@@ -5,10 +5,16 @@
 	"description" : "lsys module upload",
 	"autoload" : {
 		"psr-4" : {
-			"LSYS\\" : "src/classes/LSYS/"
+			"LSYS\\" :[
+				"src/upload/classes/LSYS/",
+				"src/remote/classes/LSYS/",
+				"src/uploader/classes/LSYS/"
+			]
 		},
 		"files" : [
-			"src/Bootstarp.php"
+			"src/upload/Bootstarp.php",
+			"src/remote/Bootstarp.php",
+			"src/uploader/Bootstarp.php"
 		]
 	},
 	"require" : {

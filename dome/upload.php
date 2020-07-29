@@ -18,8 +18,8 @@ if (!isset($_FILES['file']))die();
 $file=$_FILES['file'];
 $config= new File("upload.dome_image");
 $upload = new Image($file,$config);
-
-$filename=$upload->save("ddd".$upload->getExt());
+$name="ddd".$upload->getExt();
+$filename=$upload->save($name);
 if ($filename===false){
 	print_r($upload->errors());
 }else{
